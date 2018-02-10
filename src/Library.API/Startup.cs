@@ -14,6 +14,7 @@ using Library.API.Helpers;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
+using NLog.Extensions.Logging;
 
 namespace Library.API
 {
@@ -53,6 +54,8 @@ namespace Library.API
         {
             loggerFactory.AddConsole();
             loggerFactory.AddDebug(LogLevel.Information);
+            //loggerFactory.AddProvider(new NLog.Extensions.Logging.NLogLoggerProvider());
+            //loggerFactory.AddNLog();
 
             if (env.IsDevelopment())
             {
