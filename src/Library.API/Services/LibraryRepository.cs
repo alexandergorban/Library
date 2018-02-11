@@ -69,10 +69,20 @@ namespace Library.API.Services
         {
             var collectionBeforePaging = _context.Authors
                 .OrderBy(a => a.FirstName)
-                .ThenBy(a => a.LastName);
+                .ThenBy(a => a.LastName)
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(authorsResourceParameters.Genre))
+            {
+                // trim & ignore casing
+                var genreForWhereClause = authorsResourceParameters.Genre.Trim().ToLowerInvariant();
+                collectionBeforePaging =
+                    collectionBeforePaging.Where(a => a.Genre.ToLowerInvariant() == genreForWhereClause);
+            }
 
             return PagedList<Author>.Create(collectionBeforePaging,
-                authorsResourceParameters.PageNumber, authorsResourceParameters.PageSize);
+                authorsResourceParameters.PageNumber, 
+                authorsResourceParameters.PageSize);
         }
 
         public IEnumerable<Author> GetAuthors(IEnumerable<Guid> authorIds)
