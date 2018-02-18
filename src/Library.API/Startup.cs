@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetCoreRateLimit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -90,7 +91,31 @@ namespace Library.API
             services.AddHttpCacheHeaders((expirationModelOptions) => { expirationModelOptions.MaxAge = 600; },
                 (validationModelOptions) => { validationModelOptions.AddMustRevalidate = true; });
 
-            services.AddResponseCaching();
+            //services.AddResponseCaching();
+
+            services.AddMemoryCache();
+
+            services.Configure<IpRateLimitOptions>((options) =>
+            {
+                options.GeneralRules = new List<RateLimitRule>()
+                {
+                    new RateLimitRule()
+                    {
+                        Endpoint = "*",
+                        Limit = 10,
+                        Period = "5m"
+                    },
+                    new RateLimitRule()
+                    {
+                        Endpoint = "*",
+                        Limit = 5,
+                        Period = "10s"
+                    }
+                };
+            });
+
+            services.AddSingleton<IRateLimitCounterStore, MemoryCacheRateLimitCounterStore>();
+            services.AddSingleton<IIpPolicyStore, MemoryCacheIpPolicyStore>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -148,7 +173,9 @@ namespace Library.API
 
             libraryContext.EnsureSeedDataForContext();
 
-            app.UseResponseCaching();
+            //app.UseResponseCaching();
+
+            app.UseIpRateLimiting();
 
             app.UseHttpCacheHeaders();
 
