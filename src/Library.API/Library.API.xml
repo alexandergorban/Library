@@ -10,7 +10,37 @@
             </summary>
             <param name="id">The id of the author you want to get</param>
             <param name="fields">Required fields</param>
-            <returns>An author with id, first and lastname fields</returns>
+            <returns>An ActionResult of type Author</returns>
+        </member>
+        <member name="T:Library.API.Models.AuthorForCreationDto">
+            <summary>
+            An author First Name, Last Name, Date of birth, Genre, Books fields
+            </summary>
+        </member>
+        <member name="P:Library.API.Models.AuthorForCreationDto.FirstName">
+            <summary>
+            The first name for the author
+            </summary>
+        </member>
+        <member name="P:Library.API.Models.AuthorForCreationDto.LastName">
+            <summary>
+            The last name for the author
+            </summary>
+        </member>
+        <member name="P:Library.API.Models.AuthorForCreationDto.DateOfBirth">
+            <summary>
+            The date of birth for the author
+            </summary>
+        </member>
+        <member name="P:Library.API.Models.AuthorForCreationDto.Genre">
+            <summary>
+            The genre for the author
+            </summary>
+        </member>
+        <member name="P:Library.API.Models.AuthorForCreationDto.Books">
+            <summary>
+            The list of books for the author
+            </summary>
         </member>
     </members>
 </doc>
