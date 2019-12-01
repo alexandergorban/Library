@@ -203,7 +203,7 @@ namespace Library.API.Controllers
             return CreatedAtRoute("GetAuthor", new { id = linkedResourceToReturn["Id"] }, linkedResourceToReturn);
         }
 
-        [HttpPost(Name = "CreateAuthorWithDateOfDeath")]
+        [HttpPost("full", Name = "CreateAuthorWithDateOfDeath")]
         [RequestHeaderMatchesMediaType("Content-Type", new[]
         {
             "application/vnd.marvin.authorwithdateofdeath.full+json",
