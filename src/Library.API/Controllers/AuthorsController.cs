@@ -151,6 +151,13 @@ namespace Library.API.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Get an author by his/her id
+        /// </summary>
+        /// <param name="id">The id of the author you want to get</param>
+        /// <param name="fields">Required fields</param>
+        /// <returns>An ActionResult of type Author</returns>
         [HttpGet("{id}", Name = "GetAuthor")]
         public IActionResult GetAuthor(Guid id, [FromQuery] string fields)
         {
